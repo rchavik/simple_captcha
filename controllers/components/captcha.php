@@ -14,8 +14,15 @@ class CaptchaComponent extends Object
 
 	var $font = null;
 
+	var $components = array(
+		'Session',
+		);
+
 	function startup( &$controller ) {
 		$this->Controller =& $controller;
+		if (!empty($controller->data['User']['captcha_response_field'])) {
+			$controller->User->security_code = $this->Session->read('security_code');
+		}
 	}
 
 	function generateCode($characters) {
@@ -33,7 +40,7 @@ class CaptchaComponent extends Object
 	function create($width='120',$height='40',$characters='6') {
 
 		if ($this->font == null) {
-			$this->font = dirname(__FILE__) . DS . 'monofont.ttf';
+			$this->font = App::pluginPath($this->Controller->plugin) . DS . 'webroot' . DS . 'monofont.ttf';
 		}
 
 		$code = $this->generateCode($characters);

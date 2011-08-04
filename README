@@ -1,0 +1,36 @@
+SimpleCaptcha Plugin Version 0.1
+--------------------------------
+
+An adaptation of Arvind K's Captcha component into a Croogo plugin.
+
+It should be straight forward to use this in a plain cakephp application as well.
+
+Eg:
+```php
+// models/user.php
+class User extends AppModel {
+
+	var $actsAs = array('SimpleCaptcha.Captcha');
+	var $helpers = array('SimpleCaptcha.Captcha');
+
+}
+```
+
+```
+// controllers/users_controller.php
+class UsersController extends AppModel {
+	var $components = array('SimpleCaptcha.Captcha');
+}
+
+```
+
+```php
+// views/users/register.ctp
+echo $this->Form->create('User');
+echo $this->Form->input('name');
+...
+echo $this->element('captcha', array('plugin' => 'SimpleCaptcha'));
+```
+
+Good luck and have fun.
+-- rchavik
