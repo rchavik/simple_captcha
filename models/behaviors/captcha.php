@@ -3,10 +3,6 @@
 class CaptchaBehavior extends ModelBehavior {
 
 	function setup(&$model, $config = array()) {
-		if ($model->alias != 'User') {
-			return;
-		}
-
 		$this->injectValidationRule(&$model);
 
 		$this->settings[$model->alias] = Set::merge(array(
