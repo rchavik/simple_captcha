@@ -29,6 +29,11 @@ var SimpleCaptcha = function() {
 		}
 		var validCaptcha;
 		var $form = $('form:has(".captcha")');
+
+		if ($form.length == 0) {
+			return;
+		}
+
 		var rules = {
 			'data[User][captcha_response_field]': {
 				required: true,
