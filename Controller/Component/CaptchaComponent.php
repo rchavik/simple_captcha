@@ -9,7 +9,7 @@
 	* @version 0.0.1 
 	*   - Initial release
 	*/
-class CaptchaComponent extends Object
+class CaptchaComponent extends Component
 {
 
 	var $font = null;
@@ -19,7 +19,7 @@ class CaptchaComponent extends Object
 		);
 
 	function startup( &$controller ) {
-		$this->Controller =& $controller;
+		$this->Controller = $controller;
 		if (!empty($controller->data['User']['captcha_response_field'])) {
 			$controller->User->security_code = $this->Session->read('security_code');
 		}
