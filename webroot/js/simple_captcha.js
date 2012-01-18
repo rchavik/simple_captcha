@@ -23,40 +23,38 @@ var SimpleCaptcha = function() {
 		}
 	}
 
-	var addCaptchaValidation = function() {
+	var addCaptchaValidation = function(options) {
 		if (typeof $.validator !== 'function') {
 			_loadPlugin();
 		}
 		var validCaptcha;
+		var settings = {
+			rules: {},
+			messages: {},
+			focusInvalid: true,
+			onkeyup: false
+		};
 		var $form = $('form:has(".captcha")');
 
 		if ($form.length == 0) {
 			return;
 		}
 
-		var rules = {
-			'data[User][captcha_response_field]': {
-				required: true,
-				remote: {
-					url: SimpleCaptcha.basePath+ 'simple_captcha/captcha/check',
-					type: 'post'
-				}
+		var rule = {
+			required: true,
+			remote: {
+				url: SimpleCaptcha.basePath+ 'simple_captcha/captcha/check',
+				type: 'post'
 			}
 		};
 
-		var messages = {
-			'data[User][captcha_response_field]': {
-				remote: 'Security code mismatch'
-			}
+		var message = {
+			remote: 'Security code mismatch'
 		}
 
-		var options = {
-			rules: rules,
-			messages: messages,
-			focusInvalid: true,
-			onkeyup: false
-		};
-		$.extend(true, $form.validate().settings, options);
+		settings.rules[options.captchaResponseField] = rule;
+		settings.messages[options.captchaResponseField] = message;
+		$.extend(true, $form.validate().settings, settings);
 	}
 
 	return {

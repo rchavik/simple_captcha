@@ -13,6 +13,7 @@ class CaptchaController extends SimpleCaptchaAppController {
 		if ($this->action == 'check') {
 			if (!empty($this->Security)) {
 				$this->Security->validatePost = false;
+				$this->Security->csrfCheck = false;
 			}
 		}
 	}
@@ -26,16 +27,16 @@ class CaptchaController extends SimpleCaptchaAppController {
 	}
 
 	function check() {
-		$this->autoRender = false;
-		$this->layout = 'ajax';
+		$this->viewClass = 'Json';
 		$code = $this->Session->read('security_code');
 		$result = false;
-		if (!empty($this->data['User']['captcha_response_field'])) {
-			$result = $code == $this->data['User']['captcha_response_field'];
+		$field = Configure::read('SimpleCaptcha.fields.captcha_response_field');
+		list($model, $field) = explode('.', $field);
+		if (!empty($this->data[$model][$field])) {
+			$result = $code == $this->data[$model][$field];
 		}
-		Configure::write('debug', 0);
-		header('Content-Type: application/json');
-		echo $result ? 'true' : 'false';
+		$this->set(compact('result'));
+		$this->set('_serialize', 'result');
 	}
 
 }

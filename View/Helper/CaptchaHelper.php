@@ -21,9 +21,12 @@ class CaptchaHelper extends AppHelper {
 			$this->Html->script('/simple_captcha/js/jquery.validate.min', false, array('once' => true, 'inline' => false));
 
 			// setup events
+			$field = Configure::read('SimpleCaptcha.fields.captcha_response_field');
+			list($model, $field) = explode('.', $field);
+			$field = "data[{$model}][{$field}]";
 			$script =<<<EOF
 $('#captcha-container a.newimage').live('click', SimpleCaptcha.getNewImage);
-SimpleCaptcha.addCaptchaValidation();
+SimpleCaptcha.addCaptchaValidation({captchaResponseField: "$field"});
 EOF;
 			$this->Js->buffer($script);
 		}
