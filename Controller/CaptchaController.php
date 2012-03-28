@@ -7,6 +7,8 @@ class CaptchaController extends SimpleCaptchaAppController {
 		'SimpleCaptcha.Captcha',
 		);
 
+	public $User = null;
+
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow(array('image', 'check'));

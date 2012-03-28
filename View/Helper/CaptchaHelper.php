@@ -22,6 +22,9 @@ class CaptchaHelper extends AppHelper {
 
 			// setup events
 			$field = Configure::read('SimpleCaptcha.fields.captcha_response_field');
+			if (empty($field)) {
+				throw new UnexpectedValueException('Missing SimpleCaptcha field settings');
+			}
 			list($model, $field) = explode('.', $field);
 			$field = "data[{$model}][{$field}]";
 			$script =<<<EOF
