@@ -2,12 +2,12 @@
 
 class CaptchaController extends SimpleCaptchaAppController {
 
-	var $uses = array();
-	var $components = array(
+	public $uses = array();
+	public $components = array(
 		'SimpleCaptcha.Captcha',
 		);
 
-	function beforeFilter() {
+	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Auth->allow(array('image', 'check'));
 		if ($this->action == 'check') {
@@ -18,7 +18,7 @@ class CaptchaController extends SimpleCaptchaAppController {
 		}
 	}
 
-	function image() {
+	public function image() {
 		$this->autoRender = false;
 		$width = 256;
 		$height = 50;
@@ -26,7 +26,7 @@ class CaptchaController extends SimpleCaptchaAppController {
 		$this->Captcha->create($width, $height, $numChars);
 	}
 
-	function check() {
+	public function check() {
 		$this->viewClass = 'Json';
 		$code = $this->Session->read('security_code');
 		$result = false;

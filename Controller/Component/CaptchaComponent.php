@@ -12,9 +12,9 @@
 class CaptchaComponent extends Component
 {
 
-	var $font = null;
+	public $font = null;
 
-	var $components = array(
+	public $components = array(
 		'Session',
 		);
 
