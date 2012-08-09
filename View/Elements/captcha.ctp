@@ -31,6 +31,7 @@ $captchaUrl = array(
 	echo $this->Form->input('captcha_response_field', array(
 		'id' => 'captcha_response_field',
 		'label' => __d('simple_captcha', 'Put security code here'),
+		'value' => '',
 		'autocomplete' => 'off',
 		));
 

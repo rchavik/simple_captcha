@@ -20,8 +20,9 @@ class CaptchaComponent extends Component
 
 	function startup( &$controller ) {
 		$this->Controller = $controller;
-		if (!empty($controller->data['User']['captcha_response_field'])) {
-			$controller->User->security_code = $this->Session->read('security_code');
+		$modelClass = $controller->modelClass;
+		if (!empty($controller->data[$modelClass]['captcha_response_field'])) {
+			$controller->{$modelClass}->security_code = $this->Session->read('security_code');
 		}
 	}
 
