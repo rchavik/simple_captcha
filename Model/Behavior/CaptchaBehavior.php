@@ -2,8 +2,8 @@
 
 class CaptchaBehavior extends ModelBehavior {
 
-	function setup(&$model, $config = array()) {
-		$this->injectValidationRule(&$model);
+	function setup(Model $model, $config = array()) {
+		$this->injectValidationRule($model);
 
 		$this->settings[$model->alias] = Set::merge(array(
 			'enabled' => true,
@@ -11,7 +11,7 @@ class CaptchaBehavior extends ModelBehavior {
 
 	}
 
-	function injectValidationRule(&$model) {
+	function injectValidationRule(Model $model) {
 		$model->validate['captcha_response_field'] = array(
 			'validCaptcha' => array(
 				'rule' => 'validCaptcha',
@@ -20,11 +20,11 @@ class CaptchaBehavior extends ModelBehavior {
 			);
 	}
 
-	function validCaptcha(&$model, $check) {
+	function validCaptcha(Model $model, $check) {
 		if (property_exists($model, 'security_code')) {
 			return $check['captcha_response_field'] == $model->security_code;
 		}
-		return false;
+		return true;
 	}
 
 }

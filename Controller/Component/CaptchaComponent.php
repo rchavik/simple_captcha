@@ -3,10 +3,10 @@
 	* Component for Generating Captcha	*
 	* PHP versions 5.1.4
 	* @filesource
-	* @author     Arvind K. 
+	* @author     Arvind K.
 	* @link       http://www.devarticles.in/
 	* @copyright  Copyright © 2008 www.devarticles.in
-	* @version 0.0.1 
+	* @version 0.0.1
 	*   - Initial release
 	*/
 class CaptchaComponent extends Component
@@ -18,7 +18,7 @@ class CaptchaComponent extends Component
 		'Session',
 		);
 
-	function startup( &$controller ) {
+	function startup(Controller $controller ) {
 		$this->Controller = $controller;
 		$modelClass = $controller->modelClass;
 		if (!empty($controller->data[$modelClass]['captcha_response_field'])) {
@@ -31,7 +31,7 @@ class CaptchaComponent extends Component
 		$possible = '2345678bcdfhjkmnpqrstvwxyz';
 		$code = '';
 		$i = 0;
-		while ($i < $characters) { 
+		while ($i < $characters) {
 			$code .= substr($possible, mt_rand(0, strlen($possible)-1), 1);
 			$i++;
 		}
@@ -72,7 +72,7 @@ class CaptchaComponent extends Component
 		header('Content-Type: image/jpeg');
 		imagejpeg($image);
 		imagedestroy($image);
-		
+
 		$this->Controller->Session->write('security_code',$code);
 	}
 

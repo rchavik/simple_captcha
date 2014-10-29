@@ -7,7 +7,7 @@ class CaptchaHelper extends AppHelper {
 		'Js',
 		);
 
-	function beforeRender() {
+	function beforeRender($viewFile) {
 		$params = $this->params;
 		if (isset($params['isAjax']) && $params['isAjax'] === true) {
 			return;
